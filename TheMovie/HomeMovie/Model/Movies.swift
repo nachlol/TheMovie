@@ -18,13 +18,14 @@ struct Movies: Codable {
 struct Movie: Codable {
     let title: String
     let popularity: Double
+    let genreID:[Int]
     let movieID: Int
     let voteCount: Int
     let originalTitle: String
     let voteAverage: Double
     let sinopsis: String
-    let releaseDate: String
-    let image: String
+    let releaseDate: String?
+    let image: String?
     
     enum CodingKeys: String, CodingKey {
         case title
@@ -36,5 +37,6 @@ struct Movie: Codable {
         case sinopsis = "overview"
         case releaseDate = "release_date"
         case image = "poster_path"
+        case genreID = "genre_ids"
     }
 }

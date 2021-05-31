@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieCollectionviewCell" id="Ggg-hO-hLH" customClass="MovieCollectionViewCell" customModule="TheMovie" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="159" height="324"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="SWB-fF-Z4a">
+                <rect key="frame" x="0.0" y="0.0" width="159" height="324"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w6d-Wv-Ub8">
+                        <rect key="frame" x="10" y="271" width="139" height="22"/>
+                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
+                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LOJ-lJ-UJ6">
+                        <rect key="frame" x="0.0" y="0.0" width="159" height="256"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="256" id="ywx-p6-iT6"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAH-GE-e4F">
+                        <rect key="frame" x="10" y="295" width="139" height="22"/>
+                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                <constraints>
+                    <constraint firstItem="w6d-Wv-Ub8" firstAttribute="trailing" secondItem="LOJ-lJ-UJ6" secondAttribute="trailing" constant="-10" id="2BS-t7-g0c"/>
+                    <constraint firstItem="KAH-GE-e4F" firstAttribute="trailing" secondItem="w6d-Wv-Ub8" secondAttribute="trailing" id="2uP-Fj-j2H"/>
+                    <constraint firstItem="LOJ-lJ-UJ6" firstAttribute="top" secondItem="SWB-fF-Z4a" secondAttribute="top" id="4ul-DV-yAf"/>
+                    <constraint firstItem="LOJ-lJ-UJ6" firstAttribute="leading" secondItem="SWB-fF-Z4a" secondAttribute="leading" id="5Fz-di-Fg2"/>
+                    <constraint firstItem="KAH-GE-e4F" firstAttribute="leading" secondItem="w6d-Wv-Ub8" secondAttribute="leading" id="85f-MI-Uat"/>
+                    <constraint firstItem="w6d-Wv-Ub8" firstAttribute="top" secondItem="LOJ-lJ-UJ6" secondAttribute="bottom" constant="15" id="CCH-3A-bWu"/>
+                    <constraint firstItem="w6d-Wv-Ub8" firstAttribute="leading" secondItem="LOJ-lJ-UJ6" secondAttribute="leading" constant="10" id="RUa-nm-1Bl"/>
+                    <constraint firstItem="KAH-GE-e4F" firstAttribute="top" secondItem="w6d-Wv-Ub8" secondAttribute="bottom" constant="2" id="lyu-OD-pHt"/>
+                    <constraint firstAttribute="trailing" secondItem="LOJ-lJ-UJ6" secondAttribute="trailing" id="yAe-fP-LMi"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="159" height="324"/>
+            <connections>
+                <outlet property="imgMovie" destination="LOJ-lJ-UJ6" id="68D-F7-FLZ"/>
+                <outlet property="lblDateMovie" destination="KAH-GE-e4F" id="ige-wO-sQe"/>
+                <outlet property="lbltitleMovie" destination="w6d-Wv-Ub8" id="CqV-Xy-Zxq"/>
+            </connections>
+            <point key="canvasLocation" x="-397.82608695652175" y="-233.03571428571428"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

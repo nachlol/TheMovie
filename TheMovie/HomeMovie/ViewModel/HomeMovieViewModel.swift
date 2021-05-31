@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 class HomeMovieViewModel {
     
@@ -17,8 +18,20 @@ class HomeMovieViewModel {
     }
     
     
-    func getListMoviesData() -> <#Return Type#>{
-        return managerConnections.getPopularMovies()
+    func getListMoviesData(type:String) -> Observable<[Movie]>{
+        return managerConnections.getMovies(type: type)
+    }
+    
+    func getListGenreData() -> Observable<[Genre]>{
+        return managerConnections.getGenres()
+    }
+    
+    func getListLanguageData() -> Observable<[Language]>{
+        return managerConnections.getLanguage()
+    }
+    
+    func getDiscoverData(language:String,voteAverageMin:Int,voteAverageMax:Int,includeAdult:Bool) -> Observable<[Movie]>{
+        return managerConnections.getDiscover(language: language, voteAverageMin: voteAverageMin, voteAverageMax: voteAverageMax, includeAdult: includeAdult)
     }
     
 }

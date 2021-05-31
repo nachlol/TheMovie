@@ -6,6 +6,7 @@
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,44 +18,71 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wlH-tf-K79">
-                                <rect key="frame" x="0.0" y="125" width="414" height="737"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pc8-Ky-bNI">
+                                <rect key="frame" x="0.0" y="115" width="414" height="747"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="D9k-px-gNJ">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pbL-dG-KdM">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FlZ-oV-qJV">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="ehH-06-JFo" id="B8m-De-s0N"/>
-                                    <outlet property="delegate" destination="ehH-06-JFo" id="5T3-e5-HVV"/>
+                                    <outlet property="dataSource" destination="ehH-06-JFo" id="Q2f-wM-Baq"/>
+                                    <outlet property="delegate" destination="ehH-06-JFo" id="ptx-Qv-LS0"/>
                                 </connections>
-                            </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hUe-8L-rDd">
+                            </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hUe-8L-rDd">
                                 <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
                             </activityIndicatorView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Lih-td-3gl">
-                                <rect key="frame" x="60" y="74" width="294" height="32"/>
+                                <rect key="frame" x="110" y="74" width="194" height="32"/>
                                 <color key="backgroundColor" name="ColorBackground"/>
                                 <segments>
                                     <segment title="Popular"/>
-                                    <segment title="TopRated"/>
+                                    <segment title="Top Rated"/>
                                 </segments>
                                 <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </segmentedControl>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_filter" translatesAutoresizingMaskIntoConstraints="NO" id="Fdx-le-E4h">
+                                <rect key="frame" x="369" y="78" width="25" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="JGJ-DT-SmY"/>
+                                    <constraint firstAttribute="width" constant="25" id="fXI-TB-Edv"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cVY-bz-K7j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="cVY-bz-K7j" firstAttribute="bottom" secondItem="wlH-tf-K79" secondAttribute="bottom" id="12o-Vk-jIg"/>
-                            <constraint firstItem="cVY-bz-K7j" firstAttribute="trailing" secondItem="wlH-tf-K79" secondAttribute="trailing" id="3qf-Eg-GgL"/>
+                            <constraint firstItem="Pc8-Ky-bNI" firstAttribute="leading" secondItem="cVY-bz-K7j" secondAttribute="leading" id="1JE-1g-ZZb"/>
+                            <constraint firstItem="Pc8-Ky-bNI" firstAttribute="top" secondItem="Lih-td-3gl" secondAttribute="bottom" constant="10" id="82S-dd-JkP"/>
                             <constraint firstItem="hUe-8L-rDd" firstAttribute="centerX" secondItem="jWe-eq-Rtk" secondAttribute="centerX" id="Ast-7B-67F"/>
+                            <constraint firstItem="cVY-bz-K7j" firstAttribute="bottom" secondItem="Pc8-Ky-bNI" secondAttribute="bottom" id="Csz-uC-GvG"/>
+                            <constraint firstItem="cVY-bz-K7j" firstAttribute="trailing" secondItem="Fdx-le-E4h" secondAttribute="trailing" constant="20" id="H2c-FZ-OIN"/>
+                            <constraint firstItem="cVY-bz-K7j" firstAttribute="trailing" secondItem="Pc8-Ky-bNI" secondAttribute="trailing" id="JT7-BP-rj0"/>
                             <constraint firstItem="hUe-8L-rDd" firstAttribute="centerY" secondItem="jWe-eq-Rtk" secondAttribute="centerY" id="QCa-Rm-23p"/>
-                            <constraint firstItem="cVY-bz-K7j" firstAttribute="trailing" secondItem="Lih-td-3gl" secondAttribute="trailing" constant="60" id="fdS-FT-yTZ"/>
-                            <constraint firstItem="wlH-tf-K79" firstAttribute="top" secondItem="Lih-td-3gl" secondAttribute="bottom" constant="20" id="ilC-mh-bxv"/>
+                            <constraint firstItem="Fdx-le-E4h" firstAttribute="centerY" secondItem="Lih-td-3gl" secondAttribute="centerY" id="Uhi-5D-3vY"/>
+                            <constraint firstItem="cVY-bz-K7j" firstAttribute="trailing" secondItem="Lih-td-3gl" secondAttribute="trailing" constant="110" id="fdS-FT-yTZ"/>
                             <constraint firstItem="Lih-td-3gl" firstAttribute="top" secondItem="cVY-bz-K7j" secondAttribute="top" constant="30" id="peg-r7-qzS"/>
-                            <constraint firstItem="wlH-tf-K79" firstAttribute="leading" secondItem="cVY-bz-K7j" secondAttribute="leading" id="rgK-oZ-EcD"/>
-                            <constraint firstItem="Lih-td-3gl" firstAttribute="leading" secondItem="cVY-bz-K7j" secondAttribute="leading" constant="60" id="yiX-rw-tkb"/>
+                            <constraint firstItem="Lih-td-3gl" firstAttribute="leading" secondItem="cVY-bz-K7j" secondAttribute="leading" constant="110" id="yiX-rw-tkb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activity" destination="hUe-8L-rDd" id="7Qe-aw-yKC"/>
-                        <outlet property="tableViewMovie" destination="wlH-tf-K79" id="uRO-Uf-aGU"/>
+                        <outlet property="collectionviewMovie" destination="Pc8-Ky-bNI" id="FIu-VX-Cxl"/>
+                        <outlet property="imgFilter" destination="Fdx-le-E4h" id="CXW-Oz-Cgr"/>
+                        <outlet property="segmentControl" destination="Lih-td-3gl" id="Jbt-lj-sEx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uJV-NX-4xT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -63,6 +91,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_filter" width="18" height="16"/>
         <namedColor name="ColorBackground">
             <color red="0.82745098039215681" green="0.32156862745098042" blue="0.41176470588235292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
