@@ -7,6 +7,8 @@
 
 import Foundation
 
+//MARK: - Movies
+
 struct Movies: Codable {
     let listOfmovies: [Movie]
     
@@ -14,6 +16,7 @@ struct Movies: Codable {
         case listOfmovies = "results"
     }
 }
+//MARK: - Movie
 
 struct Movie: Codable {
     let title: String
@@ -41,6 +44,7 @@ struct Movie: Codable {
     }
 }
 
+//MARK: - Category Movies
 
 struct CategoryMovie {
     let categoryName: String

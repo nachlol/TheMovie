@@ -17,7 +17,6 @@ class HomeMovieViewModel {
         self.view = view
     }
     
-    
     func getListMoviesData(type:String) -> Observable<[Movie]>{
         return managerConnections.getMovies(type: type)
     }
@@ -37,5 +36,4 @@ class HomeMovieViewModel {
     func getSearchData(search:String) -> Observable<[Movie]>{
         return managerConnections.getSearch(search: search)
     }
-    
 }

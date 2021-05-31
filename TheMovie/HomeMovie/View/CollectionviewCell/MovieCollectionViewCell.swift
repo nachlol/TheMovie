@@ -26,6 +26,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
         configureShadows()
     }
     
+    //MARK: - Functions
+    
     func configureShadows(){
         self.contentView.backgroundColor = UIColor.white
         self.contentView.layer.borderWidth = 0.5

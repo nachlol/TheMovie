@@ -11,6 +11,8 @@ import RxCocoa
 
 class HomeMovieViewController: UIViewController {
 
+    //MARK: - Outlets
+    
     @IBOutlet private weak var collectionviewMovie: UICollectionView!
     @IBOutlet private weak var activity: UIActivityIndicatorView!
     @IBOutlet private weak var segmentControl: UISegmentedControl!
@@ -28,19 +30,6 @@ class HomeMovieViewController: UIViewController {
     private var priceRangeEnd = 0
     private var maxHeight = 0
     private var categories = [CategoryMovie]()
-    
-    lazy var searchController: UISearchController = ({
-        let controller = UISearchController(searchResultsController: nil)
-        controller.hidesNavigationBarDuringPresentation = true
-        controller.obscuresBackgroundDuringPresentation = false
-        controller.searchBar.sizeToFit()
-        controller.searchBar.barStyle = .black
-        controller.searchBar.barTintColor = .black
-        controller.searchBar.backgroundColor = .clear
-        controller.searchBar.placeholder = "Search a movie"
-        
-        return controller
-    })()
     
     override func viewDidLoad() {
         super.viewDidLoad()
