@@ -6,7 +6,6 @@
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pc8-Ky-bNI">
-                                <rect key="frame" x="0.0" y="115" width="414" height="747"/>
+                                <rect key="frame" x="0.0" y="159" width="414" height="703"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="D9k-px-gNJ">
                                     <size key="itemSize" width="128" height="128"/>
@@ -27,16 +26,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pbL-dG-KdM">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FlZ-oV-qJV">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                                 <connections>
                                     <outlet property="dataSource" destination="ehH-06-JFo" id="Q2f-wM-Baq"/>
                                     <outlet property="delegate" destination="ehH-06-JFo" id="ptx-Qv-LS0"/>
@@ -61,20 +51,37 @@
                                     <constraint firstAttribute="width" constant="25" id="fXI-TB-Edv"/>
                                 </constraints>
                             </imageView>
+                            <searchBar contentMode="redraw" placeholder="Search Movie" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tbe-aL-hti">
+                                <rect key="frame" x="0.0" y="115" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="oA5-gK-AOx"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                                <connections>
+                                    <outlet property="delegate" destination="ehH-06-JFo" id="5VL-71-TpL"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cVY-bz-K7j"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Pc8-Ky-bNI" firstAttribute="leading" secondItem="cVY-bz-K7j" secondAttribute="leading" id="1JE-1g-ZZb"/>
-                            <constraint firstItem="Pc8-Ky-bNI" firstAttribute="top" secondItem="Lih-td-3gl" secondAttribute="bottom" constant="10" id="82S-dd-JkP"/>
+                            <constraint firstItem="tbe-aL-hti" firstAttribute="leading" secondItem="cVY-bz-K7j" secondAttribute="leading" id="5rQ-ki-OQX"/>
                             <constraint firstItem="hUe-8L-rDd" firstAttribute="centerX" secondItem="jWe-eq-Rtk" secondAttribute="centerX" id="Ast-7B-67F"/>
                             <constraint firstItem="cVY-bz-K7j" firstAttribute="bottom" secondItem="Pc8-Ky-bNI" secondAttribute="bottom" id="Csz-uC-GvG"/>
                             <constraint firstItem="cVY-bz-K7j" firstAttribute="trailing" secondItem="Fdx-le-E4h" secondAttribute="trailing" constant="20" id="H2c-FZ-OIN"/>
                             <constraint firstItem="cVY-bz-K7j" firstAttribute="trailing" secondItem="Pc8-Ky-bNI" secondAttribute="trailing" id="JT7-BP-rj0"/>
+                            <constraint firstItem="tbe-aL-hti" firstAttribute="trailing" secondItem="cVY-bz-K7j" secondAttribute="trailing" id="Ljh-lN-xK6"/>
                             <constraint firstItem="hUe-8L-rDd" firstAttribute="centerY" secondItem="jWe-eq-Rtk" secondAttribute="centerY" id="QCa-Rm-23p"/>
                             <constraint firstItem="Fdx-le-E4h" firstAttribute="centerY" secondItem="Lih-td-3gl" secondAttribute="centerY" id="Uhi-5D-3vY"/>
+                            <constraint firstItem="Pc8-Ky-bNI" firstAttribute="top" secondItem="tbe-aL-hti" secondAttribute="bottom" id="faR-WL-TGg"/>
                             <constraint firstItem="cVY-bz-K7j" firstAttribute="trailing" secondItem="Lih-td-3gl" secondAttribute="trailing" constant="110" id="fdS-FT-yTZ"/>
                             <constraint firstItem="Lih-td-3gl" firstAttribute="top" secondItem="cVY-bz-K7j" secondAttribute="top" constant="30" id="peg-r7-qzS"/>
+                            <constraint firstItem="tbe-aL-hti" firstAttribute="top" secondItem="Lih-td-3gl" secondAttribute="bottom" constant="10" id="qY0-uH-UZZ"/>
                             <constraint firstItem="Lih-td-3gl" firstAttribute="leading" secondItem="cVY-bz-K7j" secondAttribute="leading" constant="110" id="yiX-rw-tkb"/>
                         </constraints>
                     </view>
@@ -82,6 +89,7 @@
                         <outlet property="activity" destination="hUe-8L-rDd" id="7Qe-aw-yKC"/>
                         <outlet property="collectionviewMovie" destination="Pc8-Ky-bNI" id="FIu-VX-Cxl"/>
                         <outlet property="imgFilter" destination="Fdx-le-E4h" id="CXW-Oz-Cgr"/>
+                        <outlet property="searchMovies" destination="tbe-aL-hti" id="HDn-AG-CJk"/>
                         <outlet property="segmentControl" destination="Lih-td-3gl" id="Jbt-lj-sEx"/>
                     </connections>
                 </viewController>

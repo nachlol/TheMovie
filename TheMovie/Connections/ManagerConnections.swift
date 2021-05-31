@@ -43,6 +43,36 @@ class ManagerConnection {
         }
     }
     
+    func getSearch(search:String) -> Observable<[Movie]>{
+        return Observable.create{ observer in
+            let session = URLSession.shared
+            let newSearch = search.lowercased().replacingOccurrences(of: " ", with: "%20", options: .literal, range: nil)
+            var request = URLRequest(url:URL(string:Constants.URL.urlmain+Constants.Movie.urlSearch+Constants.apiKey+"&query=\(newSearch)")!)
+            request.httpMethod = "GET"
+            request.addValue("application/json", forHTTPHeaderField:
+                "Content-Type")
+            session.dataTask(with: request) { (data, response, error) in
+                guard let data = data, error == nil, let response = response as? HTTPURLResponse else { return }
+                if response.statusCode == 200 {
+                    do {
+                        let decoder = JSONDecoder()
+                        let movies = try decoder.decode(Movies.self, from: data)
+                        observer.onNext(movies.listOfmovies)
+                    } catch {
+                        //MARK: observer onNext event
+                      observer.onError(APIError.errorConnection("Server code: \(response.statusCode)"))
+                    }
+                }
+                //MARK: observer onCompleted event
+                observer.onCompleted()
+            }.resume()
+            //MARK: return our disposable
+            return Disposables.create {
+                session.finishTasksAndInvalidate()
+            }
+        }
+    }
+    
     func getGenres() -> Observable<[Genre]>{
         return Observable.create{ observer in
             let session = URLSession.shared

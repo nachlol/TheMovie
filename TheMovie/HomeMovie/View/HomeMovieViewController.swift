@@ -15,17 +15,32 @@ class HomeMovieViewController: UIViewController {
     @IBOutlet private weak var activity: UIActivityIndicatorView!
     @IBOutlet private weak var segmentControl: UISegmentedControl!
     @IBOutlet private weak var imgFilter: UIImageView!
+    @IBOutlet private weak var searchMovies: UISearchBar!
     
     private var viewModel = HomeMovieViewModel()
-    
     private var movies = [Movie]()
     private var filteredMovies = [Movie]()
     private var languages = [Language]()
+    private var genres = [Genre]()
     private let disposeBag = DisposeBag()
     private var filterview: FilterView?
     private var priceRangeStart = 0
     private var priceRangeEnd = 0
     private var maxHeight = 0
+    private var categories = [CategoryMovie]()
+    
+    lazy var searchController: UISearchController = ({
+        let controller = UISearchController(searchResultsController: nil)
+        controller.hidesNavigationBarDuringPresentation = true
+        controller.obscuresBackgroundDuringPresentation = false
+        controller.searchBar.sizeToFit()
+        controller.searchBar.barStyle = .black
+        controller.searchBar.barTintColor = .black
+        controller.searchBar.backgroundColor = .clear
+        controller.searchBar.placeholder = "Search a movie"
+        
+        return controller
+    })()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +61,48 @@ class HomeMovieViewController: UIViewController {
             .subscribe(
                 onNext: { movies in
                         self.movies = movies
+                    if self.searchMovies.text != "" {
+                        self.filteredMovies = movies
+                    }
                         self.reloadTableView()
+            }, onError: { error in
+                print(error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: disposeBag)
+    }
+    
+    private func getDataSearch(search:String){
+        return viewModel.getSearchData(search: search)
+            .subscribe(on: MainScheduler.instance)
+            .observe(on: MainScheduler.instance)
+            .subscribe(
+                onNext: { movies in
+                    self.filteredMovies = movies
+                    self.categories.removeAll()
+                    var selectId:Array<Int> = []
+                    
+                    //Get Array ID Genre
+                    for movie in self.filteredMovies {
+                        for genreMovie in movie.genreID {
+                            selectId.append(genreMovie)
+                        }
+                    }
+                    //Filter Type Genre
+                    let filterGenre = self.genres.filter({ selectId.contains($0.id) })
+                    
+                    //Group Type Genre in Movies
+                    for category in filterGenre {
+                        var movies:[Movie] = []
+                        for movie in self.filteredMovies {
+                            for genreId in movie.genreID {
+                                if genreId == category.id {
+                                    movies.append(movie)
+                                }
+                            }
+                        }
+                        self.categories.append(CategoryMovie(categoryName: category.name, movies: movies))
+                    }
+                    self.reloadTableView()
             }, onError: { error in
                 print(error.localizedDescription)
             }, onCompleted: {
@@ -60,6 +116,7 @@ class HomeMovieViewController: UIViewController {
             .subscribe(
                 onNext: { genres in
                     print(genres)
+                    self.genres = genres
             }, onError: { error in
                 print(error.localizedDescription)
             }, onCompleted: {
@@ -101,6 +158,7 @@ class HomeMovieViewController: UIViewController {
     
     private func configureCollectionView(){
         collectionviewMovie.register(MovieCollectionViewCell.nib(), forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
+        collectionviewMovie.register(HeaderCollectionReusableView.nib(), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
     }
     
     private func configureSegment(){
@@ -166,6 +224,18 @@ class HomeMovieViewController: UIViewController {
         }
     }
     
+    private func manageSearchBarController() {
+        if searchMovies.text! == ""{
+            if segmentControl.selectedSegmentIndex == 0 {
+                getDatMovies(type: "popular")
+            }else if segmentControl.selectedSegmentIndex == 1 {
+                getDatMovies(type: "top_rated")
+            }
+        }else {
+            getDataSearch(search: searchMovies.text!)
+        }
+    }
+    
     //MARK: - Objc
     
     @objc func actionSegmentControl(){
@@ -189,6 +259,13 @@ class HomeMovieViewController: UIViewController {
     }
 }
 
+extension HomeMovieViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchMovies.endEditing(true)
+        manageSearchBarController()
+    }
+}
+
 //MARK: - Extension RangeSeekSliderDelegate
 
 extension HomeMovieViewController: RangeSeekSliderDelegate {
@@ -206,18 +283,42 @@ extension HomeMovieViewController: RangeSeekSliderDelegate {
 extension HomeMovieViewController: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
+        if (searchMovies.text != "") {
+            return self.categories[section].movies.count
+        }
+        else {
+            return self.movies.count
+        }
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if (searchMovies.text != "") {
+            return self.categories.count
+        }
+        else {
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.identifier, for: indexPath) as!  MovieCollectionViewCell
         cell.layer.applySketchShadow(color: UIColor.black.withAlphaComponent(0.3),x:0,y: 3,blur: 6)
         cell.layer.masksToBounds = false
-        if let image = self.movies[indexPath.row].image {
-            cell.imgMovie.imageFromServerURL(urlString: "\(Constants.URL.urlImage+image)", placeHolderImage: UIImage(named: "icon_logo")!)
+        
+        //Filter Movies
+        if (searchMovies.text != "") {
+            if let image = self.categories[indexPath.section].movies[indexPath.row].image {
+                cell.imgMovie.imageFromServerURL(urlString: "\(Constants.URL.urlImage+image)", placeHolderImage: UIImage(named: "icon_logo")!)
+            }
+            cell.lbltitleMovie.text = self.categories[indexPath.section].movies[indexPath.row].title
+            cell.lblDateMovie.text = converDate(date: self.categories[indexPath.section].movies[indexPath.row].releaseDate ?? "")
+        }else {
+            if let image = self.movies[indexPath.row].image {
+                cell.imgMovie.imageFromServerURL(urlString: "\(Constants.URL.urlImage+image)", placeHolderImage: UIImage(named: "icon_logo")!)
+            }
+            cell.lbltitleMovie.text = self.movies[indexPath.row].title
+            cell.lblDateMovie.text = converDate(date: self.movies[indexPath.row].releaseDate ?? "")
         }
-        cell.lbltitleMovie.text = self.movies[indexPath.row].title
-        cell.lblDateMovie.text = converDate(date: self.movies[indexPath.row].releaseDate ?? "")
         return cell
     }
     
@@ -232,5 +333,19 @@ extension HomeMovieViewController: UICollectionViewDelegate,UICollectionViewData
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as! HeaderCollectionReusableView
+        header.lblTitleGenre.text = self.categories[indexPath.section].categoryName
+        return header
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if (searchMovies.text == "") {
+            return CGSize.zero
+        }else {
+            return CGSize(width: view.frame.size.width, height: 40)
+        }
     }
 }

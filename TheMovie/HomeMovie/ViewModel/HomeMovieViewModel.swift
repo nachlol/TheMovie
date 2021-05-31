@@ -34,4 +34,8 @@ class HomeMovieViewModel {
         return managerConnections.getDiscover(language: language, voteAverageMin: voteAverageMin, voteAverageMax: voteAverageMax, includeAdult: includeAdult)
     }
     
+    func getSearchData(search:String) -> Observable<[Movie]>{
+        return managerConnections.getSearch(search: search)
+    }
+    
 }

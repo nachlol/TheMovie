@@ -21,5 +21,6 @@ struct Constants {
         static let urlGenre = "/genre/movie/list"
         static let urlLanguage = "/configuration/languages"
         static let urlDiscover = "/discover/movie"
+        static let urlSearch = "/search/movie"
     }
 }

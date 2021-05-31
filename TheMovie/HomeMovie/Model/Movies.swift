@@ -40,3 +40,9 @@ struct Movie: Codable {
         case genreID = "genre_ids"
     }
 }
+
+
+struct CategoryMovie {
+    let categoryName: String
+    let movies: [Movie]
+}
