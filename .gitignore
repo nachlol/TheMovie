@@ -1,32 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@nachlol 
-github
-/
-gitignore
-3.2k
-119k65.5k
-Code
-Pull requests
-270
-Actions
-Security
-Insights
-gitignore/Swift.gitignore
-@Coeur
-Coeur Improving the documentation of Objective-C and Swift files (#3133)
-Latest commit e00d43a on 7 Aug 2019
- History
- 22 contributors
-@KrauseFx@Coeur@shiftkey@juliancadi@fidmor89@FabrizioBrancati@adrfer@nwest@nrbrook@natestedman@martinblech@yanniks
-90 lines (74 sloc)  2.12 KB
-  
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
