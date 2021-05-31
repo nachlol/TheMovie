@@ -2,7 +2,7 @@
 
 Se Utiliza un Patron MVVM
 
-Para poder abrir la aplicacion es necesario instalar las dependencias
+Para poder abrir el proyecto correctamente es necesario instalar las dependencias
 
 Comando:
 
