@@ -124,7 +124,7 @@ class ManagerConnection {
                       observer.onError(APIError.errorConnection("Server code: \(response.statusCode)"))
                     }
                 }
-                //MARK: observer onCompleted event pepito
+                //MARK: observer onCompleted event
                 observer.onCompleted()
             }.resume()
             //MARK: return our disposable
